@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF3ED">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="85dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp">
+
+            <!-- ================= HEADER ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- BACK -->
+                <TextView
+                    android:id="@+id/backButton"
+                    android:layout_width="42dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="‹"
+                    android:textSize="32sp"
+                    android:textColor="#2E1B18" />
+
+                <!-- TITLE -->
+                <TextView
+                    android:id="@+id/pageTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Paintings"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E1B18" />
+
+                <!-- CART -->
+                <TextView
+                    android:id="@+id/cartButton"
+                    android:layout_width="42dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="🛒"
+                    android:textSize="21sp" />
+
+            </LinearLayout>
+
+
+            <!-- ================= FILTERS ================= -->
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- SORT -->
+                    <TextView
+                        android:id="@+id/sortButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:paddingStart="13dp"
+                        android:paddingEnd="13dp"
+                        android:text="☷  Sort"
+                        android:textSize="12sp"
+                        android:textColor="#3E2925"
+                        android:background="#FFFFFF" />
+
+                    <!-- PRICE -->
+                    <TextView
+                        android:id="@+id/priceButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:paddingStart="13dp"
+                        android:paddingEnd="13dp"
+                        android:text="Price⌄"
+                        android:textSize="12sp"
+                        android:textColor="#3E2925"
+                        android:background="#FFFFFF" />
+
+                    <!-- POPULAR -->
+                    <TextView
+                        android:id="@+id/popularButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:paddingStart="13dp"
+                        android:paddingEnd="13dp"
+                        android:text="Popular"
+                        android:textSize="12sp"
+                        android:textColor="#3E2925"
+                        android:background="#FFFFFF" />
+
+                    <!-- NEW -->
+                    <TextView
+                        android:id="@+id/newButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:paddingStart="13dp"
+                        android:paddingEnd="13dp"
+                        android:text="New"
+                        android:textSize="12sp"
+                        android:textColor="#3E2925"
+                        android:background="#FFFFFF" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <!-- ================= PRODUCT GRID ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+
+                <!-- ================= ROW 1 ================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- PRODUCT 1 -->
+                    <LinearLayout
+                        android:id="@+id/productCard1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/pup_painting"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Puppy Painting" />
+
+                            <TextView
+                                android:id="@+id/wishlist1"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Puppy Portrait"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Canvas Painting"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹499"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 2 -->
+                    <LinearLayout
+                        android:id="@+id/productCard2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/puppy_painting"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Puppy Artwork" />
+
+                            <TextView
+                                android:id="@+id/wishlist2"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Puppy Dreams"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Canvas Painting"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹499"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!-- ================= ROW 2 ================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <!-- PRODUCT 3 -->
+                    <LinearLayout
+                        android:id="@+id/productCard3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/tasty_painting"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Tasty Painting" />
+
+                            <TextView
+                                android:id="@+id/wishlist3"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Tasty Little Things"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Canvas Painting"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹449"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 4 -->
+                    <LinearLayout
+                        android:id="@+id/productCard4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/cute_christmas"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Christmas Painting" />
+
+                            <TextView
+                                android:id="@+id/wishlist4"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Cute Christmas"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seasonal Art"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹399"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!-- ================= ROW 3 ================= -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <!-- PRODUCT 5 -->
+                    <LinearLayout
+                        android:id="@+id/productCard5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/meow_christmas"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Meow Christmas Painting" />
+
+                            <TextView
+                                android:id="@+id/wishlist5"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Meow Christmas"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seasonal Art"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹449"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 6 -->
+                    <LinearLayout
+                        android:id="@+id/productCard6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="175dp">
+
+                            <ImageView
+                                android:id="@+id/productImage6"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/pup_painting"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Handmade Painting" />
+
+                            <TextView
+                                android:id="@+id/wishlist6"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="24sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/productName6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Garden Portrait"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:id="@+id/productCategory6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Handmade Art"
+                            android:textSize="11sp"
+                            android:textColor="#888888" />
+
+                        <TextView
+                            android:id="@+id/productPrice6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="₹499"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!-- BOTTOM SPACE -->
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:elevation="12dp">
+
+        <!-- HOME -->
+
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textSize="23sp"
+                android:textColor="#555555" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="10sp"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
+
+        <!-- CATEGORIES -->
+
+        <LinearLayout
+            android:id="@+id/navCategories"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▦"
+                android:textSize="22sp"
+                android:textColor="#B56576" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="10sp"
+                android:textColor="#B56576" />
+
+        </LinearLayout>
+
+
+        <!-- ORDERS -->
+
+        <LinearLayout
+            android:id="@+id/navOrders"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▣"
+                android:textSize="20sp"
+                android:textColor="#555555" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orders"
+                android:textSize="10sp"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
+
+        <!-- WISHLIST -->
+
+        <LinearLayout
+            android:id="@+id/navWishlist"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♡"
+                android:textSize="25sp"
+                android:textColor="#555555" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wishlist"
+                android:textSize="10sp"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
+
+        <!-- PROFILE -->
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♙"
+                android:textSize="22sp"
+                android:textColor="#555555" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="10sp"
+                android:textColor="#555555" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

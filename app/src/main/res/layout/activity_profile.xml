@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FDF3ED">
+
+    <!-- ================= PROFILE CONTENT ================= -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ================= PINK HEADER ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="#B56576"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <!-- Top row -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="My Profile"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="⚙"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp" />
+
+                </LinearLayout>
+
+
+                <!-- Profile information -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="125dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Profile picture -->
+
+                    <ImageView
+                        android:layout_width="92dp"
+                        android:layout_height="92dp"
+                        android:background="#FDF3ED"
+                        android:padding="4dp"
+                        android:src="@drawable/craftcart_logo"
+                        android:scaleType="centerInside"
+                        android:contentDescription="Profile picture" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Hi, Craft Lover! 👋"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Craft more, worry less."
+                            android:textColor="#FCECEF"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:layout_width="105dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="10dp"
+                            android:backgroundTint="#B56576"
+                            android:text="Edit Profile"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- ================= PROFILE OPTIONS ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:background="#FFFFFF"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="4dp">
+
+
+                <!-- MY ORDERS -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="▣"
+                        android:textColor="#B56576"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="My Orders"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- WISHLIST -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="♡"
+                        android:textColor="#B56576"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Wishlist"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- ADDRESSES -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="⌖"
+                        android:textColor="#B56576"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Addresses"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- PAYMENT METHODS -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="▣"
+                        android:textColor="#B56576"
+                        android:textSize="19sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Payment Methods"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- SETTINGS -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="⚙"
+                        android:textColor="#B56576"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Settings"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- HELP & SUPPORT -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="？"
+                        android:textColor="#B56576"
+                        android:textSize="19sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Help &amp; Support"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- ABOUT -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="ⓘ"
+                        android:textColor="#B56576"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="About CraftCart"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
+
+
+                <!-- LOG OUT -->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    android:text="Log Out"
+                    android:textColor="#B56576"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <!-- HOME -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="⌂"
+                android:textColor="#555555"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="#555555"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+        <!-- CATEGORIES -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="▦"
+                android:textColor="#555555"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textColor="#555555"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+        <!-- ORDERS -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="▣"
+                android:textColor="#555555"
+                android:textSize="21sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orders"
+                android:textColor="#555555"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+        <!-- WISHLIST -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="&#x2665;&#xFE0E;"
+                android:textColor="#555555"
+                android:textSize="25sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wishlist"
+                android:textColor="#555555"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+
+        <!-- PROFILE - SELECTED -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="♙"
+                android:textColor="#B56576"
+                android:textSize="23sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="#B56576"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

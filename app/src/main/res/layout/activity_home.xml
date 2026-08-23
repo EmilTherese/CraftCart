@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDF3ED">
+
+    <!-- MAIN SCROLLING CONTENT -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        android:paddingBottom="75dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ================= TOP APP BAR ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp"
+                android:background="#B96578">
+
+                <!-- MENU -->
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="☰"
+                    android:textSize="27sp"
+                    android:textColor="#FFFFFF" />
+
+                <!-- LOGO -->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="CraftCart"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF" />
+
+                <!-- WISHLIST -->
+
+                <TextView
+                    android:id="@+id/headerWishlist"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="♡"
+                    android:textSize="32sp"
+                    android:textColor="#FFFFFF" />
+
+                <!-- CART -->
+
+                <TextView
+                    android:id="@+id/headerCart"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="🛒"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+
+            <!-- ================= SEARCH BAR ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FFFFFF"
+                android:paddingStart="12dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="⌕"
+                    android:textSize="25sp"
+                    android:textColor="#333333" />
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Search for crafts, gifts, keychains..."
+                    android:textSize="13sp"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:padding="4dp" />
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="☷"
+                    android:textSize="24sp"
+                    android:textColor="#B96578" />
+
+            </LinearLayout>
+
+
+            <!-- ================= BANNER ================= -->
+
+            <ImageView
+                android:id="@+id/bannerImage"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/craftcart_logo"
+                android:scaleType="centerCrop"
+                android:contentDescription="Handmade is Heartmade banner" />
+
+
+            <!-- BANNER DOTS -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:gravity="center"
+                android:text="●  ○  ○  ○"
+                android:textSize="10sp"
+                android:textColor="#B96578" />
+
+
+            <!-- ================= RECOMMENDED HEADER ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recommended for You"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E1B18" />
+
+                <TextView
+                    android:id="@+id/seeAllText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See All"
+                    android:textSize="13sp"
+                    android:textColor="#B96578" />
+
+            </LinearLayout>
+
+
+            <!-- ================= PRODUCT ROW ================= -->
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <!-- PRODUCT 1 -->
+
+                    <LinearLayout
+                        android:id="@+id/clayHouseCard"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="6dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp">
+
+                            <ImageView
+                                android:id="@+id/clayHouseImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/clay_house"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Clay House" />
+
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="23sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Clay House"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="₹599"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 2 -->
+
+                    <LinearLayout
+                        android:id="@+id/miffyCard"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="6dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp">
+
+                            <ImageView
+                                android:id="@+id/miffyImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/miffy_keychai"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Miffy Keychain" />
+
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="23sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Miffy Keychain"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="₹349"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 3 -->
+
+                    <LinearLayout
+                        android:id="@+id/flowerCard"
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="6dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp">
+
+                            <ImageView
+                                android:id="@+id/flowerPlantersImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/flower_planters"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Flower Planters" />
+
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:gravity="center"
+                                android:text="♡"
+                                android:textSize="23sp"
+                                android:textColor="#FFFFFF" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Flower Planters"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="₹449"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+
+                    <!-- PRODUCT 4 PLACEHOLDER -->
+
+                    <LinearLayout
+                        android:layout_width="125dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="6dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="125dp"
+                            android:src="@drawable/craftcart_logo"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Handmade craft" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="Handmade Craft"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#3E2925" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="₹299"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#B56576" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <!-- ================= CATEGORIES ================= -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="18dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categories"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E1B18" />
+
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <!-- PAINTINGS -->
+
+                    <LinearLayout
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:text="🎨"
+                            android:textSize="30sp"
+                            android:background="#F9EDE7" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Paintings"
+                            android:textSize="10sp"
+                            android:textColor="#333333" />
+
+                    </LinearLayout>
+
+
+                    <!-- GIFTS -->
+
+                    <LinearLayout
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:text="🎁"
+                            android:textSize="30sp"
+                            android:background="#F9EDE7" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Handmade Gifts"
+                            android:textSize="10sp"
+                            android:textColor="#333333" />
+
+                    </LinearLayout>
+
+
+                    <!-- KEYCHAINS -->
+
+                    <LinearLayout
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:text="🔑"
+                            android:textSize="30sp"
+                            android:background="#F9EDE7" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Keychains"
+                            android:textSize="10sp"
+                            android:textColor="#333333" />
+
+                    </LinearLayout>
+
+
+                    <!-- LETTERS -->
+
+                    <LinearLayout
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:text="✉"
+                            android:textSize="30sp"
+                            android:background="#F9EDE7" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Letters"
+                            android:textSize="10sp"
+                            android:textColor="#333333" />
+
+                    </LinearLayout>
+
+
+                    <!-- MORE -->
+
+                    <LinearLayout
+                        android:layout_width="72dp"
+                        android:layout_height="100dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:text="⊞"
+                            android:textSize="30sp"
+                            android:textColor="#555555"
+                            android:background="#F9EDE7" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="More"
+                            android:textSize="10sp"
+                            android:textColor="#333333" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+
+            <!-- EXTRA SPACE -->
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ================= CHATBOT ================= -->
+
+    <TextView
+        android:id="@+id/chatbotButton"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="78dp"
+        android:gravity="center"
+        android:text="💬"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/chatbot_circle"
+        android:elevation="10dp"
+        android:contentDescription="Chatbot" />
+
+
+    <!-- ================= BOTTOM NAVIGATION ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:elevation="12dp">
+
+
+        <!-- HOME -->
+
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textSize="25sp"
+                android:textColor="#B56576" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="10sp"
+                android:textColor="#B56576" />
+
+        </LinearLayout>
+
+
+        <!-- CATEGORIES -->
+
+        <LinearLayout
+            android:id="@+id/navCategories"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▦"
+                android:textSize="23sp"
+                android:textColor="#444444" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:textSize="10sp"
+                android:textColor="#444444" />
+
+        </LinearLayout>
+
+
+        <!-- ORDERS -->
+
+        <LinearLayout
+            android:id="@+id/navOrders"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▣"
+                android:textSize="21sp"
+                android:textColor="#444444" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orders"
+                android:textSize="10sp"
+                android:textColor="#444444" />
+
+        </LinearLayout>
+
+
+        <!-- WISHLIST -->
+
+        <LinearLayout
+            android:id="@+id/navWishlist"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♡"
+                android:textSize="25sp"
+                android:textColor="#444444" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wishlist"
+                android:textSize="10sp"
+                android:textColor="#444444" />
+
+        </LinearLayout>
+
+
+        <!-- PROFILE -->
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♙"
+                android:textSize="23sp"
+                android:textColor="#444444" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="10sp"
+                android:textColor="#444444" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

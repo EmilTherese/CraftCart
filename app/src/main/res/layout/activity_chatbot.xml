@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FDF3ED">
+
+    <!-- ================= HEADER ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:id="@+id/backButton"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="#2E1B18"
+            android:textSize="32sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#B56576"
+                android:gravity="center"
+                android:text="✦"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CraftCart Assistant"
+                    android:textColor="#2E1B18"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Your little crafting buddy"
+                    android:textColor="#888888"
+                    android:textSize="9sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="⋮"
+            android:textColor="#555555"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+
+    <!-- ================= CHAT AREA ================= -->
+
+    <ScrollView
+        android:id="@+id/chatScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/chatContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <!-- DATE -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TODAY"
+                android:textColor="#AAAAAA"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+
+
+            <!-- BOT INTRO -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="#B56576"
+                    android:gravity="center"
+                    android:text="✦"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hi! I'm Crafty 👋"
+                        android:textColor="#2E1B18"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="I'm here to help you discover handmade treasures, find the perfect gift, or answer any questions about CraftCart."
+                        android:textColor="#555555"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!-- QUICK OPTIONS -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="18dp"
+                android:text="What can I help you with?"
+                android:textColor="#777777"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/giftButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="🎁  Help me find a gift"
+                    android:textColor="#B56576"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/productHelpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="🛍  Help me choose a product"
+                    android:textColor="#B56576"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/orderHelpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="📦  Help with my order"
+                    android:textColor="#B56576"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+
+            <!-- SAMPLE USER MESSAGE -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="end">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="260dp"
+                    android:background="#B56576"
+                    android:padding="12dp"
+                    android:text="I need help choosing a gift 🎁"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+            <!-- SAMPLE BOT RESPONSE -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="#B56576"
+                    android:gravity="center"
+                    android:text="✦"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:maxWidth="250dp"
+                    android:background="#FFFFFF"
+                    android:padding="12dp"
+                    android:text="Of course! 💕 Tell me a little about the person you're buying for and your budget, and I'll help you find something special."
+                    android:textColor="#555555"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- ================= MESSAGE INPUT ================= -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="#FFFFFF"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+        <EditText
+            android:id="@+id/messageInput"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="#FDF3ED"
+            android:hint="Type a message..."
+            android:paddingStart="14dp"
+            android:paddingEnd="10dp"
+            android:textColor="#2E1B18"
+            android:textColorHint="#999999"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/sendButton"
+            android:layout_width="46dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="#B56576"
+            android:gravity="center"
+            android:text="➤"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
