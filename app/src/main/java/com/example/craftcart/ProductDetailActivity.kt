@@ -1,20 +1,39 @@
 package com.example.craftcart
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_product_detail)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Top Bar
+        findViewById<TextView>(R.id.backButton)?.setOnClickListener {
+            finish()
+        }
+
+        findViewById<TextView>(R.id.wishlistButton)?.setOnClickListener {
+            val intent = Intent(this, WishlistActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            }
+            startActivity(intent)
+        }
+
+        findViewById<TextView>(R.id.cartButton)?.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
+
+        // Action Buttons
+        findViewById<Button>(R.id.addToCartButton)?.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.buyNowButton)?.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
         }
     }
 }

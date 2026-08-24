@@ -27,7 +27,9 @@
                 android:gravity="center"
                 android:text="‹"
                 android:textColor="#2E1B18"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <TextView
                 android:layout_width="0dp"

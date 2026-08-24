@@ -86,6 +86,12 @@
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ChatbotActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CraftCart"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>
