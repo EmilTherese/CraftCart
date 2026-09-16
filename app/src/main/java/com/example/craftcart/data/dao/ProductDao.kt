@@ -11,23 +11,23 @@ import com.example.craftcart.data.entity.Product
 @Dao
 interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(product: Product): Long
+    fun insert(product: Product): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(products: List<Product>)
+    fun insertAll(products: List<Product>): List<Long>
 
     @Update
-    suspend fun update(product: Product)
+    fun update(product: Product): Int
 
     @Delete
-    suspend fun delete(product: Product)
+    fun delete(product: Product): Int
 
     @Query("SELECT * FROM products WHERE id = :id LIMIT 1")
-    suspend fun getProductById(id: Long): Product?
+    fun getProductById(id: Long): Product?
 
     @Query("SELECT * FROM products")
-    suspend fun getAllProducts(): List<Product>
+    fun getAllProducts(): List<Product>
 
     @Query("SELECT * FROM products WHERE category = :category")
-    suspend fun getProductsByCategory(category: String): List<Product>
+    fun getProductsByCategory(category: String): List<Product>
 }

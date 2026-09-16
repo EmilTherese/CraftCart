@@ -30,15 +30,15 @@ class HomeActivity : AppCompatActivity() {
         }
 
         findViewById<View>(R.id.clayHouseCard)?.setOnClickListener {
-            startActivity(Intent(this, ProductDetailActivity::class.java))
+            openDetail(7L)
         }
 
         findViewById<View>(R.id.miffyCard)?.setOnClickListener {
-            startActivity(Intent(this, ProductDetailActivity::class.java))
+            openDetail(8L)
         }
 
         findViewById<View>(R.id.flowerCard)?.setOnClickListener {
-            startActivity(Intent(this, ProductDetailActivity::class.java))
+            openDetail(9L)
         }
 
         // Chatbot Button
@@ -78,5 +78,12 @@ class HomeActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    private fun openDetail(productId: Long) {
+        val intent = Intent(this, ProductDetailActivity::class.java).apply {
+            putExtra("PRODUCT_ID", productId)
+        }
+        startActivity(intent)
     }
 }

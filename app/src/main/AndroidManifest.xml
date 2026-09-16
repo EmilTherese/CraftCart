@@ -46,31 +46,31 @@
 
         <activity
             android:name=".CategoryActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ProductListActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ProductDetailActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".CartActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".WishlistActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 

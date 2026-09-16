@@ -10,17 +10,17 @@ import com.example.craftcart.data.entity.Wishlist
 @Dao
 interface WishlistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(wishlist: Wishlist): Long
+    fun insert(wishlist: Wishlist): Long
 
     @Delete
-    suspend fun delete(wishlist: Wishlist)
+    fun delete(wishlist: Wishlist): Int
 
     @Query("DELETE FROM wishlist_items WHERE productId = :productId")
-    suspend fun deleteByProductId(productId: Long)
+    fun deleteByProductId(productId: Long): Int
 
     @Query("SELECT * FROM wishlist_items")
-    suspend fun getAllWishlistItems(): List<Wishlist>
+    fun getAllWishlistItems(): List<Wishlist>
 
     @Query("SELECT * FROM wishlist_items WHERE productId = :productId LIMIT 1")
-    suspend fun getWishlistItemByProductId(productId: Long): Wishlist?
+    fun getWishlistItemByProductId(productId: Long): Wishlist?
 }

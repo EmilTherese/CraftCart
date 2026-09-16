@@ -10,14 +10,14 @@ import com.example.craftcart.data.entity.Order
 @Dao
 interface OrderDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(order: Order): Long
+    fun insert(order: Order): Long
 
     @Delete
-    suspend fun delete(order: Order)
+    fun delete(order: Order): Int
 
     @Query("SELECT * FROM orders")
-    suspend fun getAllOrders(): List<Order>
+    fun getAllOrders(): List<Order>
 
     @Query("SELECT * FROM orders WHERE id = :id LIMIT 1")
-    suspend fun getOrderById(id: Long): Order?
+    fun getOrderById(id: Long): Order?
 }

@@ -11,20 +11,20 @@ import com.example.craftcart.data.entity.User
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User): Long
+    fun insert(user: User): Long
 
     @Update
-    suspend fun update(user: User)
+    fun update(user: User): Int
 
     @Delete
-    suspend fun delete(user: User)
+    fun delete(user: User): Int
 
     @Query("SELECT * FROM users WHERE id = :id LIMIT 1")
-    suspend fun getUserById(id: Long): User?
+    fun getUserById(id: Long): User?
 
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
-    suspend fun getUserByEmail(email: String): User?
+    fun getUserByEmail(email: String): User?
 
     @Query("SELECT * FROM users")
-    suspend fun getAllUsers(): List<User>
+    fun getAllUsers(): List<User>
 }

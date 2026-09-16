@@ -20,17 +20,13 @@ class CategoryActivity : AppCompatActivity() {
             startActivity(Intent(this, CartActivity::class.java))
         }
 
-        // Category Cards
-        val categoryClickListener = View.OnClickListener {
-            startActivity(Intent(this, ProductListActivity::class.java))
-        }
-
-        findViewById<View>(R.id.paintingsCategory)?.setOnClickListener(categoryClickListener)
-        findViewById<View>(R.id.giftsCategory)?.setOnClickListener(categoryClickListener)
-        findViewById<View>(R.id.keychainsCategory)?.setOnClickListener(categoryClickListener)
-        findViewById<View>(R.id.lettersCategory)?.setOnClickListener(categoryClickListener)
-        findViewById<View>(R.id.homeDecorCategory)?.setOnClickListener(categoryClickListener)
-        findViewById<View>(R.id.crochetCategory)?.setOnClickListener(categoryClickListener)
+        // Category Cards -> Pass CATEGORY_NAME extra
+        findViewById<View>(R.id.paintingsCategory)?.setOnClickListener { openCategory("Paintings") }
+        findViewById<View>(R.id.giftsCategory)?.setOnClickListener { openCategory("Handmade Gifts") }
+        findViewById<View>(R.id.keychainsCategory)?.setOnClickListener { openCategory("Keychains") }
+        findViewById<View>(R.id.lettersCategory)?.setOnClickListener { openCategory("Handwritten Letters") }
+        findViewById<View>(R.id.homeDecorCategory)?.setOnClickListener { openCategory("Home Decor") }
+        findViewById<View>(R.id.crochetCategory)?.setOnClickListener { openCategory("Crochet & Knit") }
 
         // Bottom Navigation
         findViewById<View>(R.id.homeNav)?.setOnClickListener {
@@ -64,5 +60,12 @@ class CategoryActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+    }
+
+    private fun openCategory(categoryName: String) {
+        val intent = Intent(this, ProductListActivity::class.java).apply {
+            putExtra("CATEGORY_NAME", categoryName)
+        }
+        startActivity(intent)
     }
 }
