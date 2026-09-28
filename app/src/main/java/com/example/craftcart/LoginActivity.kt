@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.craftcart.data.AppDatabase
 import com.example.craftcart.data.entity.Product
 import com.example.craftcart.data.entity.User
+import com.example.craftcart.network.NetworkUtils
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,8 +20,18 @@ import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check authentication state: if user is already signed in, navigate straight to HomeActivity
+        if (auth.currentUser != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
 
         setContentView(R.layout.activity_login)
 
@@ -51,41 +63,63 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                val db = AppDatabase.getDatabase(applicationContext)
-                var user = db.userDao().getUserByEmail(email)
-                if (user == null) {
-                    user = User(name = email.substringBefore("@"), email = email, password = password)
-                    val insertedId = db.userDao().insert(user)
-                    user = user.copy(id = insertedId)
-                }
-
-                // Sync user to Firestore "users" collection (without password)
-                try {
-                    val userData = hashMapOf(
-                        "id" to user.id,
-                        "name" to user.name,
-                        "email" to user.email
-                    )
-                    FirebaseFirestore.getInstance()
-                        .collection("users")
-                        .document(user.id.toString())
-                        .set(userData)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Login successful!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                    startActivity(intent)
-                }
+            if (!NetworkUtils.isNetworkAvailable(this)) {
+                Toast.makeText(this, "No internet connection. Internet is required for authentication.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val firebaseUser = auth.currentUser
+                        val uid = firebaseUser?.uid ?: ""
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            val db = AppDatabase.getDatabase(applicationContext)
+                            var user = db.userDao().getUserByEmail(email)
+                            if (user == null) {
+                                user = User(name = email.substringBefore("@"), email = email, password = "")
+                                val insertedId = db.userDao().insert(user)
+                                user = user.copy(id = insertedId)
+                            }
+
+                            // Sync user to Firestore "users" collection (without password)
+                            try {
+                                val userData = hashMapOf(
+                                    "id" to user.id,
+                                    "name" to user.name,
+                                    "email" to user.email,
+                                    "uid" to uid
+                                )
+                                FirebaseFirestore.getInstance()
+                                    .collection("users")
+                                    .document(user.id.toString())
+                                    .set(userData)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Login successful!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            task.exception?.localizedMessage ?: "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
         }
 
         // SIGN UP

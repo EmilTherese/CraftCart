@@ -6,11 +6,16 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+import com.example.craftcart.data.sync.FirestoreSyncManager
+
 class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // Start Firestore -> Room realtime synchronization
+        FirestoreSyncManager.startRealtimeSync(applicationContext)
 
         // Header Navigation
         findViewById<TextView>(R.id.headerWishlist)?.setOnClickListener {

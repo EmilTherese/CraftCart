@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+import com.example.craftcart.data.sync.FirestoreSyncManager
+import com.google.firebase.auth.FirebaseAuth
+
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,8 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.logoutButton)?.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            FirestoreSyncManager.stopRealtimeSync()
             val intent = Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }

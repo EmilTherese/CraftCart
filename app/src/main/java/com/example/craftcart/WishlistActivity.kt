@@ -81,7 +81,7 @@ class WishlistActivity : AppCompatActivity() {
     private fun loadWishlistFromRoom() {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
-            val wishlistList = db.wishlistDao().getAllWishlistItems()
+            val wishlistList = db.wishlistDao().getAllWishlistItems().distinctBy { it.productId }
 
             val itemsWithProducts = wishlistList.map { item ->
                 val product = db.productDao().getProductById(item.productId) ?: getFallbackProduct(item.productId)
@@ -212,39 +212,48 @@ class WishlistActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             val existingItem = db.cartDao().getCartItemByProductId(product.id)
             val finalQuantity: Int
+            val cartId: Long
             if (existingItem != null) {
                 val updated = existingItem.copy(quantity = existingItem.quantity + 1)
                 db.cartDao().update(updated)
                 finalQuantity = updated.quantity
+                cartId = existingItem.id
             } else {
-                db.cartDao().insert(Cart(productId = product.id, quantity = 1))
+                cartId = db.cartDao().insert(Cart(productId = product.id, quantity = 1))
                 finalQuantity = 1
             }
             db.wishlistDao().delete(wishlistItem)
 
-            // Firestore sync
-            try {
-                val firestore = FirebaseFirestore.getInstance()
+            val isOnline = com.example.craftcart.network.NetworkUtils.isNetworkAvailable(applicationContext)
+            if (isOnline) {
+                // Firestore sync
+                try {
+                    val firestore = FirebaseFirestore.getInstance()
 
-                val cartData = hashMapOf(
-                    "productId" to product.id,
-                    "productName" to product.name,
-                    "price" to product.price,
-                    "quantity" to finalQuantity
-                )
-                firestore.collection("cart_items")
-                    .document(product.id.toString())
-                    .set(cartData)
+                    val cartData = hashMapOf(
+                        "id" to cartId,
+                        "productId" to product.id,
+                        "productName" to product.name,
+                        "category" to product.category,
+                        "price" to product.price,
+                        "quantity" to finalQuantity
+                    )
 
-                firestore.collection("wishlist_items")
-                    .document(wishlistItem.productId.toString())
-                    .delete()
-            } catch (e: Exception) {
-                e.printStackTrace()
+                    firestore.collection("cart_items")
+                        .document(product.id.toString())
+                        .set(cartData)
+
+                    firestore.collection("wishlist_items")
+                        .document(wishlistItem.productId.toString())
+                        .delete()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(this@WishlistActivity, "Moved to Cart!", Toast.LENGTH_SHORT).show()
+                val msg = if (isOnline) "Moved to Cart!" else "Moved to Cart! (Offline Mode - Saved Locally)"
+                Toast.makeText(this@WishlistActivity, msg, Toast.LENGTH_SHORT).show()
                 loadWishlistFromRoom()
             }
         }
@@ -255,14 +264,17 @@ class WishlistActivity : AppCompatActivity() {
             val db = AppDatabase.getDatabase(applicationContext)
             db.wishlistDao().delete(wishlistItem)
 
-            // Firestore sync
-            try {
-                FirebaseFirestore.getInstance()
-                    .collection("wishlist_items")
-                    .document(wishlistItem.productId.toString())
-                    .delete()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            val isOnline = com.example.craftcart.network.NetworkUtils.isNetworkAvailable(applicationContext)
+            if (isOnline) {
+                // Firestore sync
+                try {
+                    FirebaseFirestore.getInstance()
+                        .collection("wishlist_items")
+                        .document(wishlistItem.productId.toString())
+                        .delete()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
             loadWishlistFromRoom()

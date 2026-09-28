@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -17,6 +16,7 @@ import com.example.craftcart.data.AppDatabase
 import com.example.craftcart.data.entity.Cart
 import com.example.craftcart.data.entity.Order
 import com.example.craftcart.data.entity.Product
+import com.example.craftcart.network.NetworkUtils
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -44,6 +44,8 @@ class CartActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 val db = AppDatabase.getDatabase(applicationContext)
                 val cartList = db.cartDao().getAllCartItems()
+                val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
+
                 for (item in cartList) {
                     val product = db.productDao().getProductById(item.productId) ?: getFallbackProduct(item.productId)
                     val order = Order(
@@ -54,35 +56,36 @@ class CartActivity : AppCompatActivity() {
                     )
                     val insertedOrderId = db.orderDao().insert(order)
 
-                    // Sync order to Firestore "orders"
-                    try {
-                        val orderData = hashMapOf(
-                            "id" to insertedOrderId,
-                            "productId" to item.productId,
-                            "productName" to product.name,
-                            "quantity" to item.quantity,
-                            "totalPrice" to (product.price * item.quantity),
-                            "orderDate" to "2026-09-16"
-                        )
-                        FirebaseFirestore.getInstance()
-                            .collection("orders")
-                            .document(insertedOrderId.toString())
-                            .set(orderData)
+                    if (isOnline) {
+                        try {
+                            val orderData = hashMapOf(
+                                "id" to insertedOrderId,
+                                "productId" to item.productId,
+                                "productName" to product.name,
+                                "quantity" to item.quantity,
+                                "totalPrice" to (product.price * item.quantity),
+                                "orderDate" to "2026-09-16"
+                            )
+                            FirebaseFirestore.getInstance()
+                                .collection("orders")
+                                .document(insertedOrderId.toString())
+                                .set(orderData)
 
-                        // Delete from Firestore "cart_items"
-                        FirebaseFirestore.getInstance()
-                            .collection("cart_items")
-                            .document(item.productId.toString())
-                            .delete()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                            FirebaseFirestore.getInstance()
+                                .collection("cart_items")
+                                .document(item.productId.toString())
+                                .delete()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
 
                     db.cartDao().delete(item)
                 }
 
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@CartActivity, "Order Placed Successfully!", Toast.LENGTH_SHORT).show()
+                    val msg = if (isOnline) "Order Placed Successfully!" else "Order Placed Successfully! (Offline Mode - Saved Locally)"
+                    Toast.makeText(this@CartActivity, msg, Toast.LENGTH_SHORT).show()
                     loadCartFromRoom()
                 }
             }
@@ -99,7 +102,7 @@ class CartActivity : AppCompatActivity() {
     private fun loadCartFromRoom() {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
-            val cartList = db.cartDao().getAllCartItems()
+            val cartList = db.cartDao().getAllCartItems().distinctBy { it.productId }
 
             val itemsWithProducts = cartList.map { cart ->
                 val product = db.productDao().getProductById(cart.productId) ?: getFallbackProduct(cart.productId)
@@ -148,7 +151,6 @@ class CartActivity : AppCompatActivity() {
                 setPadding(dpToPx(7), dpToPx(7), dpToPx(7), dpToPx(7))
             }
 
-            // Image
             val imageView = ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(dpToPx(78), dpToPx(80))
                 scaleType = ImageView.ScaleType.CENTER_CROP
@@ -156,7 +158,6 @@ class CartActivity : AppCompatActivity() {
             }
             itemLayout.addView(imageView)
 
-            // Info Column
             val infoLayout = LinearLayout(this).apply {
                 layoutParams = LinearLayout.LayoutParams(0, dpToPx(80), 1f).apply {
                     marginStart = dpToPx(10)
@@ -178,7 +179,6 @@ class CartActivity : AppCompatActivity() {
             }
             val priceText = TextView(this).apply {
                 text = "₹${product.price.toInt()}"
-                textSize = 14f
                 setTextColor(Color.parseColor("#B56576"))
                 setTypeface(null, Typeface.BOLD)
             }
@@ -188,7 +188,6 @@ class CartActivity : AppCompatActivity() {
             infoLayout.addView(priceText)
             itemLayout.addView(infoLayout)
 
-            // Quantity Control
             val qtyLayout = LinearLayout(this).apply {
                 layoutParams = LinearLayout.LayoutParams(dpToPx(72), dpToPx(32))
                 setBackgroundColor(Color.parseColor("#FDF8F4"))
@@ -228,7 +227,6 @@ class CartActivity : AppCompatActivity() {
             qtyLayout.addView(plusBtn)
             itemLayout.addView(qtyLayout)
 
-            // Delete Btn
             val deleteBtn = TextView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(dpToPx(30), dpToPx(40))
                 text = "⌫"
@@ -266,33 +264,43 @@ class CartActivity : AppCompatActivity() {
     private fun updateQuantity(cartItem: Cart, newQty: Int) {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
+            val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
             if (newQty <= 0) {
-                db.cartDao().delete(cartItem)
-                try {
-                    FirebaseFirestore.getInstance()
-                        .collection("cart_items")
-                        .document(cartItem.productId.toString())
-                        .delete()
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                val itemsToDelete = db.cartDao().getAllCartItems().filter { it.productId == cartItem.productId }
+                for (item in itemsToDelete) {
+                    db.cartDao().delete(item)
+                }
+                if (isOnline) {
+                    try {
+                        FirebaseFirestore.getInstance()
+                            .collection("cart_items")
+                            .document(cartItem.productId.toString())
+                            .delete()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             } else {
                 val updated = cartItem.copy(quantity = newQty)
                 db.cartDao().update(updated)
-                try {
-                    val product = db.productDao().getProductById(cartItem.productId) ?: getFallbackProduct(cartItem.productId)
-                    val cartData = hashMapOf(
-                        "productId" to cartItem.productId,
-                        "productName" to product.name,
-                        "price" to product.price,
-                        "quantity" to newQty
-                    )
-                    FirebaseFirestore.getInstance()
-                        .collection("cart_items")
-                        .document(cartItem.productId.toString())
-                        .set(cartData)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                if (isOnline) {
+                    try {
+                        val product = db.productDao().getProductById(cartItem.productId) ?: getFallbackProduct(cartItem.productId)
+                        val cartData = hashMapOf(
+                            "id" to cartItem.id,
+                            "productId" to cartItem.productId,
+                            "productName" to product.name,
+                            "category" to product.category,
+                            "price" to product.price,
+                            "quantity" to newQty
+                        )
+                        FirebaseFirestore.getInstance()
+                            .collection("cart_items")
+                            .document(cartItem.productId.toString())
+                            .set(cartData)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
             loadCartFromRoom()
@@ -302,14 +310,20 @@ class CartActivity : AppCompatActivity() {
     private fun deleteCartItem(cartItem: Cart) {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
-            db.cartDao().delete(cartItem)
-            try {
-                FirebaseFirestore.getInstance()
-                    .collection("cart_items")
-                    .document(cartItem.productId.toString())
-                    .delete()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
+            val itemsToDelete = db.cartDao().getAllCartItems().filter { it.productId == cartItem.productId }
+            for (item in itemsToDelete) {
+                db.cartDao().delete(item)
+            }
+            if (isOnline) {
+                try {
+                    FirebaseFirestore.getInstance()
+                        .collection("cart_items")
+                        .document(cartItem.productId.toString())
+                        .delete()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
             loadCartFromRoom()
         }
