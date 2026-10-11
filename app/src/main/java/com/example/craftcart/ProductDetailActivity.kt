@@ -2,18 +2,23 @@ package com.example.craftcart
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.example.craftcart.data.AppDatabase
+import com.example.craftcart.data.MediaCatalog
 import com.example.craftcart.data.entity.Cart
 import com.example.craftcart.data.entity.Order
 import com.example.craftcart.data.entity.Product
 import com.example.craftcart.data.entity.Wishlist
 import com.example.craftcart.network.NetworkUtils
+import com.example.craftcart.ui.ProductGalleryAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,10 +28,21 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private var currentPrice: Double = 499.0
     private var currentProductId: Long = 1L
+    private lateinit var galleryAdapter: ProductGalleryAdapter
+    private var tabLayoutMediator: TabLayoutMediator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+
+        val galleryViewPager = findViewById<ViewPager2>(R.id.productGalleryViewPager)
+        val galleryIndicator = findViewById<TabLayout>(R.id.galleryIndicator)
+        galleryAdapter = ProductGalleryAdapter()
+        galleryViewPager.adapter = galleryAdapter
+
+        tabLayoutMediator?.detach()
+        tabLayoutMediator = TabLayoutMediator(galleryIndicator, galleryViewPager) { _, _ -> }
+        tabLayoutMediator?.attach()
 
         currentProductId = intent.getLongExtra("PRODUCT_ID", 1L)
 
@@ -65,6 +81,11 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        tabLayoutMediator?.detach()
+        super.onDestroy()
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
@@ -87,8 +108,26 @@ class ProductDetailActivity : AppCompatActivity() {
                     findViewById<TextView>(R.id.productCategory)?.text = item.category
                     findViewById<TextView>(R.id.productPrice)?.text = "₹${item.price.toInt()}"
 
-                    val imageRes = getDrawableResId(item)
-                    findViewById<ImageView>(R.id.productImage)?.setImageResource(imageRes)
+                    val fallbackImageRes = getDrawableResId(item)
+                    val images = MediaCatalog.imagesFor(item.id, fallbackImageRes)
+                    galleryAdapter.submitList(images)
+
+                    // Video Card toggle & click
+                    val videoResId = MediaCatalog.videoFor(applicationContext, item.id)
+                    val videoCard = findViewById<View>(R.id.watchVideoCard)
+                    if (videoResId != null) {
+                        videoCard?.visibility = View.VISIBLE
+                        videoCard?.setOnClickListener {
+                            val intent = Intent(this@ProductDetailActivity, VideoPlayerActivity::class.java).apply {
+                                putExtra(VideoPlayerActivity.EXTRA_PRODUCT_ID, item.id)
+                                putExtra(VideoPlayerActivity.EXTRA_PRODUCT_NAME, item.name)
+                                putExtra(VideoPlayerActivity.EXTRA_VIDEO_RES_ID, videoResId)
+                            }
+                            startActivity(intent)
+                        }
+                    } else {
+                        videoCard?.visibility = View.GONE
+                    }
                 }
             }
         }

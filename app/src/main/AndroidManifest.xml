@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -94,6 +96,18 @@
             android:exported="false"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".CampusMapActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CraftCart"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".VideoPlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CraftCart"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
 
     </application>
 

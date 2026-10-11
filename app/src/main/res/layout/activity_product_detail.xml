@@ -2,6 +2,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDF3ED">
@@ -69,21 +70,32 @@
             </LinearLayout>
 
 
-            <!-- PRODUCT IMAGE -->
+            <!-- PRODUCT IMAGE GALLERY -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="330dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="#FFFFFF">
+                android:background="@drawable/bg_gallery_rounded"
+                android:clipToOutline="true">
 
-                <ImageView
-                    android:id="@+id/productImage"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/productGalleryViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/pup_painting"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="Puppy Portrait" />
+                    android:layout_height="match_parent" />
+
+                <!-- Dot Indicators -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/galleryIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    app:tabBackground="@drawable/gallery_indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabRippleColor="@android:color/transparent" />
 
                 <!-- IMAGE HEART -->
                 <TextView
@@ -92,12 +104,52 @@
                     android:layout_height="45dp"
                     android:layout_gravity="top|end"
                     android:layout_margin="12dp"
+                    android:background="@drawable/bg_heart_circle"
                     android:gravity="center"
                     android:text="♡"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textColor="#FFFFFF" />
 
             </FrameLayout>
+
+            <!-- CRAFT SHOWCASE VIDEO CARD -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/watchVideoCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:contentDescription="@string/craft_showcase_video_desc"
+                app:cardBackgroundColor="#B56576"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/watch_how_its_made"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <!-- PRODUCT INFORMATION -->

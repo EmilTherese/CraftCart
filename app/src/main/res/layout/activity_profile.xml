@@ -69,12 +69,13 @@
                     <!-- Profile picture -->
 
                     <ImageView
+                        android:id="@+id/profileImageView"
                         android:layout_width="92dp"
                         android:layout_height="92dp"
                         android:background="#FDF3ED"
                         android:padding="4dp"
                         android:src="@drawable/craftcart_logo"
-                        android:scaleType="centerInside"
+                        android:scaleType="centerCrop"
                         android:contentDescription="Profile picture" />
 
                     <LinearLayout
@@ -101,6 +102,7 @@
                             android:textSize="12sp" />
 
                         <Button
+                            android:id="@+id/btnEditProfile"
                             android:layout_width="105dp"
                             android:layout_height="36dp"
                             android:layout_marginTop="10dp"
@@ -203,6 +205,43 @@
 
                 </LinearLayout>
 
+
+                <!-- CAMPUS NAVIGATION (FCRIT) -->
+
+                <LinearLayout
+                    android:id="@+id/campusNavRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="14dp">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="📍"
+                        android:textColor="#B56576"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
+                        android:text="Campus Navigation (FCRIT)"
+                        android:textColor="#2E1B18"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="›"
+                        android:textColor="#555555"
+                        android:textSize="25sp" />
+
+                </LinearLayout>
 
                 <!-- ADDRESSES -->
 
