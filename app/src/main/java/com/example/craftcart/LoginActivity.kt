@@ -1,5 +1,6 @@
 package com.example.craftcart
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.craftcart.data.AppDatabase
 import com.example.craftcart.data.entity.Product
 import com.example.craftcart.data.entity.User
+import com.example.craftcart.data.sync.FirestoreSyncManager
 import com.example.craftcart.network.NetworkUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,13 @@ class LoginActivity : AppCompatActivity() {
 
         // Check authentication state: if user is already signed in, navigate straight to HomeActivity
         if (auth.currentUser != null) {
+            val uid = auth.currentUser?.uid ?: ""
+            if (uid.isNotEmpty()) {
+                getSharedPreferences("craftcart_prefs", Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("auth_uid", uid)
+                    .apply()
+            }
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
@@ -75,6 +84,11 @@ class LoginActivity : AppCompatActivity() {
                         val firebaseUser = auth.currentUser
                         val uid = firebaseUser?.uid ?: ""
 
+                        getSharedPreferences("craftcart_prefs", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("auth_uid", uid)
+                            .apply()
+
                         lifecycleScope.launch(Dispatchers.IO) {
                             val db = AppDatabase.getDatabase(applicationContext)
                             var user = db.userDao().getUserByEmail(email)
@@ -84,21 +98,9 @@ class LoginActivity : AppCompatActivity() {
                                 user = user.copy(id = insertedId)
                             }
 
-                            // Sync user to Firestore "users" collection (without password)
-                            try {
-                                val userData = hashMapOf(
-                                    "id" to user.id,
-                                    "name" to user.name,
-                                    "email" to user.email,
-                                    "uid" to uid
-                                )
-                                FirebaseFirestore.getInstance()
-                                    .collection("users")
-                                    .document(user.id.toString())
-                                    .set(userData)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
+                            // Sync user to Firestore "users" collection (keyed by Firebase UID)
+                            FirestoreSyncManager.uploadUser(applicationContext, user, uid)
+                            FirestoreSyncManager.startRealtimeSync(applicationContext)
 
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(

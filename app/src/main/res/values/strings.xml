@@ -8,14 +8,9 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <!-- Craft Showcase: Gallery & Video -->
-    <string name="watch_how_its_made">▶  Watch how it\'s made</string>
-    <string name="craft_showcase_video_desc">Watch how this handmade craft was made</string>
+    <!-- Craft Showcase: Gallery -->
     <string name="gallery_image_desc">Product craft image</string>
     <string name="gallery_image_item_desc">Product image %1$d of %2$d</string>
-    <string name="video_player_title">Craft Showcase</string>
-    <string name="video_playback_error">Unable to play video</string>
-    <string name="close_video">Close video</string>
 
     <!-- Campus Map & Navigation -->
     <string name="campus_location_permission_denied">Location permission denied. You can still view the campus map.</string>

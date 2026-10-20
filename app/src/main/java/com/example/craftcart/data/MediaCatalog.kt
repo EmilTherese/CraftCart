@@ -1,6 +1,5 @@
 package com.example.craftcart.data
 
-import android.content.Context
 import com.example.craftcart.R
 
 object MediaCatalog {
@@ -66,15 +65,5 @@ object MediaCatalog {
         } else {
             distinctImages
         }
-    }
-
-    /**
-     * Looks up res/raw/product_<id> via resources.getIdentifier.
-     * Returns the resource ID or null if not found.
-     */
-    fun videoFor(context: Context, productId: Long): Int? {
-        val resName = "product_$productId"
-        val resId = context.resources.getIdentifier(resName, "raw", context.packageName)
-        return if (resId != 0) resId else null
     }
 }

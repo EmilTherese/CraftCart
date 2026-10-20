@@ -18,6 +18,9 @@ interface OrderDao {
     @Query("SELECT * FROM orders")
     fun getAllOrders(): List<Order>
 
+    @Query("SELECT * FROM orders")
+    fun getOrdersFlow(): kotlinx.coroutines.flow.Flow<List<Order>>
+
     @Query("SELECT * FROM orders WHERE id = :id LIMIT 1")
     fun getOrderById(id: Long): Order?
 }

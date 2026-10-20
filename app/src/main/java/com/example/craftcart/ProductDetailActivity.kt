@@ -8,6 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import androidx.viewpager2.widget.ViewPager2
 import com.example.craftcart.data.AppDatabase
 import com.example.craftcart.data.MediaCatalog
@@ -15,6 +18,7 @@ import com.example.craftcart.data.entity.Cart
 import com.example.craftcart.data.entity.Order
 import com.example.craftcart.data.entity.Product
 import com.example.craftcart.data.entity.Wishlist
+import com.example.craftcart.data.sync.FirestoreSyncManager
 import com.example.craftcart.network.NetworkUtils
 import com.example.craftcart.ui.ProductGalleryAdapter
 import com.google.android.material.tabs.TabLayout
@@ -111,23 +115,6 @@ class ProductDetailActivity : AppCompatActivity() {
                     val fallbackImageRes = getDrawableResId(item)
                     val images = MediaCatalog.imagesFor(item.id, fallbackImageRes)
                     galleryAdapter.submitList(images)
-
-                    // Video Card toggle & click
-                    val videoResId = MediaCatalog.videoFor(applicationContext, item.id)
-                    val videoCard = findViewById<View>(R.id.watchVideoCard)
-                    if (videoResId != null) {
-                        videoCard?.visibility = View.VISIBLE
-                        videoCard?.setOnClickListener {
-                            val intent = Intent(this@ProductDetailActivity, VideoPlayerActivity::class.java).apply {
-                                putExtra(VideoPlayerActivity.EXTRA_PRODUCT_ID, item.id)
-                                putExtra(VideoPlayerActivity.EXTRA_PRODUCT_NAME, item.name)
-                                putExtra(VideoPlayerActivity.EXTRA_VIDEO_RES_ID, videoResId)
-                            }
-                            startActivity(intent)
-                        }
-                    } else {
-                        videoCard?.visibility = View.GONE
-                    }
                 }
             }
         }
@@ -172,43 +159,29 @@ class ProductDetailActivity : AppCompatActivity() {
             val cartId: Long
             if (existingItem != null) {
                 val updated = existingItem.copy(quantity = existingItem.quantity + 1)
-                db.cartDao().update(updated)
+                db.cartDao().deleteByProductId(productId)
+                cartId = db.cartDao().insert(updated)
                 finalQuantity = updated.quantity
-                cartId = existingItem.id
             } else {
+                db.cartDao().deleteByProductId(productId)
                 val cartItem = Cart(productId = productId, quantity = 1)
                 cartId = db.cartDao().insert(cartItem)
                 finalQuantity = 1
             }
 
-            val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
-            if (isOnline) {
-                // Save to Firestore collection "cart_items"
-                try {
-                    var product = db.productDao().getProductById(productId)
-                    if (product == null) {
-                        product = getFallbackProduct(productId)
-                    }
-
-                    val firestore = FirebaseFirestore.getInstance()
-                    val cartData = hashMapOf(
-                        "id" to cartId,
-                        "productId" to productId,
-                        "productName" to product.name,
-                        "category" to product.category,
-                        "price" to product.price,
-                        "quantity" to finalQuantity
-                    )
-                    firestore.collection("cart_items")
-                        .document(productId.toString())
-                        .set(cartData)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            var product = db.productDao().getProductById(productId)
+            if (product == null) {
+                product = getFallbackProduct(productId)
             }
+            FirestoreSyncManager.uploadCartItem(
+                applicationContext,
+                Cart(id = cartId, productId = productId, quantity = finalQuantity),
+                product
+            )
 
             withContext(Dispatchers.Main) {
-                val msg = if (isOnline) "Added to Cart!" else "Added to Cart! (Offline Mode - Saved Locally)"
+                val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
+                val msg = if (isOnline) "Added to Cart!" else "Added to Cart! (Offline Mode - Queued for Sync)"
                 Toast.makeText(this@ProductDetailActivity, msg, Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this@ProductDetailActivity, CartActivity::class.java))
             }
@@ -224,34 +197,22 @@ class ProductDetailActivity : AppCompatActivity() {
                     Toast.makeText(this@ProductDetailActivity, "Already in Wishlist", Toast.LENGTH_SHORT).show()
                 }
             } else {
+                db.wishlistDao().deleteByProductId(productId)
                 val wishlistId = db.wishlistDao().insert(Wishlist(productId = productId))
 
-                val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
-                if (isOnline) {
-                    // Sync to Firestore "wishlist_items" collection
-                    try {
-                        var product = db.productDao().getProductById(productId)
-                        if (product == null) {
-                            product = getFallbackProduct(productId)
-                        }
-                        val wishlistData = hashMapOf(
-                            "id" to wishlistId,
-                            "productId" to productId,
-                            "productName" to product.name,
-                            "category" to product.category,
-                            "price" to product.price
-                        )
-                        FirebaseFirestore.getInstance()
-                            .collection("wishlist_items")
-                            .document(productId.toString())
-                            .set(wishlistData)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+                var product = db.productDao().getProductById(productId)
+                if (product == null) {
+                    product = getFallbackProduct(productId)
                 }
+                FirestoreSyncManager.uploadWishlistItem(
+                    applicationContext,
+                    Wishlist(id = wishlistId, productId = productId),
+                    product
+                )
 
                 withContext(Dispatchers.Main) {
-                    val msg = if (isOnline) "Added to Wishlist" else "Added to Wishlist (Offline Mode - Saved Locally)"
+                    val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
+                    val msg = if (isOnline) "Added to Wishlist" else "Added to Wishlist (Offline Mode - Queued for Sync)"
                     Toast.makeText(this@ProductDetailActivity, msg, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -261,41 +222,28 @@ class ProductDetailActivity : AppCompatActivity() {
     private fun placeOrder(productId: Long, price: Double) {
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
+            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
             val order = Order(
                 productId = productId,
                 quantity = 1,
                 totalPrice = price,
-                orderDate = "2026-09-16"
+                orderDate = currentDate
             )
             val insertedOrderId = db.orderDao().insert(order)
 
-            val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
-            if (isOnline) {
-                // Sync to Firestore "orders" collection
-                try {
-                    var product = db.productDao().getProductById(productId)
-                    if (product == null) {
-                        product = getFallbackProduct(productId)
-                    }
-                    val orderData = hashMapOf(
-                        "id" to insertedOrderId,
-                        "productId" to productId,
-                        "productName" to product.name,
-                        "quantity" to 1,
-                        "totalPrice" to price,
-                        "orderDate" to "2026-09-16"
-                    )
-                    FirebaseFirestore.getInstance()
-                        .collection("orders")
-                        .document(insertedOrderId.toString())
-                        .set(orderData)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            var product = db.productDao().getProductById(productId)
+            if (product == null) {
+                product = getFallbackProduct(productId)
             }
+            FirestoreSyncManager.uploadOrder(
+                applicationContext,
+                order.copy(id = insertedOrderId),
+                product
+            )
 
             withContext(Dispatchers.Main) {
-                val msg = if (isOnline) "Order Placed!" else "Order Placed! (Offline Mode - Saved Locally)"
+                val isOnline = NetworkUtils.isNetworkAvailable(applicationContext)
+                val msg = if (isOnline) "Order Placed!" else "Order Placed! (Offline Mode - Queued for Sync)"
                 Toast.makeText(this@ProductDetailActivity, msg, Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this@ProductDetailActivity, OrdersActivity::class.java))
             }

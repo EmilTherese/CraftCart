@@ -204,60 +204,6 @@
 
             </LinearLayout>
 
-
-            <!-- SAMPLE USER MESSAGE -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="end">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxWidth="260dp"
-                    android:background="#B56576"
-                    android:padding="12dp"
-                    android:text="I need help choosing a gift 🎁"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-
-            <!-- SAMPLE BOT RESPONSE -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="start"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="#B56576"
-                    android:gravity="center"
-                    android:text="✦"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:maxWidth="250dp"
-                    android:background="#FFFFFF"
-                    android:padding="12dp"
-                    android:text="Of course! 💕 Tell me a little about the person you're buying for and your budget, and I'll help you find something special."
-                    android:textColor="#555555"
-                    android:textSize="11sp" />
-
-            </LinearLayout>
-
-
         </LinearLayout>
 
     </ScrollView>

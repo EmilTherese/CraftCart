@@ -22,8 +22,14 @@ interface CartDao {
     @Query("SELECT * FROM cart_items")
     fun getAllCartItems(): List<Cart>
 
+    @Query("SELECT * FROM cart_items")
+    fun getCartItemsFlow(): kotlinx.coroutines.flow.Flow<List<Cart>>
+
     @Query("SELECT * FROM cart_items WHERE productId = :productId LIMIT 1")
     fun getCartItemByProductId(productId: Long): Cart?
+
+    @Query("DELETE FROM cart_items WHERE productId = :productId")
+    fun deleteByProductId(productId: Long): Int
 
     @Query("DELETE FROM cart_items")
     fun clearCart(): Int

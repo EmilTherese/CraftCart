@@ -90,6 +90,10 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.logoutButton)?.setOnClickListener {
+            getSharedPreferences("craftcart_prefs", Context.MODE_PRIVATE)
+                .edit()
+                .remove("auth_uid")
+                .apply()
             FirebaseAuth.getInstance().signOut()
             FirestoreSyncManager.stopRealtimeSync()
             val intent = Intent(this, LoginActivity::class.java).apply {

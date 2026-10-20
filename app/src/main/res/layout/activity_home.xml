@@ -225,6 +225,7 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/clayHouseTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -234,6 +235,7 @@
                             android:textColor="#3E2925" />
 
                         <TextView
+                            android:id="@+id/clayHousePrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="₹599"
@@ -279,6 +281,7 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/miffyTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -288,6 +291,7 @@
                             android:textColor="#3E2925" />
 
                         <TextView
+                            android:id="@+id/miffyPrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="₹349"
@@ -333,6 +337,7 @@
                         </FrameLayout>
 
                         <TextView
+                            android:id="@+id/flowerPlantersTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -342,6 +347,7 @@
                             android:textColor="#3E2925" />
 
                         <TextView
+                            android:id="@+id/flowerPlantersPrice"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="₹449"

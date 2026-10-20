@@ -54,16 +54,15 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.ai)
+    debugImplementation(libs.firebase.appcheck.debug)
 
     // MapLibre Native & Location
     implementation(libs.maplibre.android)
     implementation(libs.play.services.location)
 
-    // Gallery & Video Player (Craft Showcase)
+    // Gallery (Craft Showcase)
     implementation(libs.androidx.viewpager2)
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.ui)
-    implementation(libs.androidx.media3.common)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -21,6 +21,9 @@ interface WishlistDao {
     @Query("SELECT * FROM wishlist_items")
     fun getAllWishlistItems(): List<Wishlist>
 
+    @Query("SELECT * FROM wishlist_items")
+    fun getWishlistItemsFlow(): kotlinx.coroutines.flow.Flow<List<Wishlist>>
+
     @Query("SELECT * FROM wishlist_items WHERE productId = :productId LIMIT 1")
     fun getWishlistItemByProductId(productId: Long): Wishlist?
 }
