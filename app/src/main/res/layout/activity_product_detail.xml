@@ -2,6 +2,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDF3ED">
@@ -69,21 +70,32 @@
             </LinearLayout>
 
 
-            <!-- PRODUCT IMAGE -->
+            <!-- PRODUCT IMAGE GALLERY -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="330dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="#FFFFFF">
+                android:background="@drawable/bg_gallery_rounded"
+                android:clipToOutline="true">
 
-                <ImageView
-                    android:id="@+id/productImage"
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/productGalleryViewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/pup_painting"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="Puppy Portrait" />
+                    android:layout_height="match_parent" />
+
+                <!-- Dot Indicators -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/galleryIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    app:tabBackground="@drawable/gallery_indicator_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabRippleColor="@android:color/transparent" />
 
                 <!-- IMAGE HEART -->
                 <TextView
@@ -92,13 +104,13 @@
                     android:layout_height="45dp"
                     android:layout_gravity="top|end"
                     android:layout_margin="12dp"
+                    android:background="@drawable/bg_heart_circle"
                     android:gravity="center"
                     android:text="♡"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:textColor="#FFFFFF" />
 
             </FrameLayout>
-
 
             <!-- PRODUCT INFORMATION -->
             <LinearLayout

@@ -138,7 +138,9 @@
                 android:layout_marginBottom="10dp"
                 android:text="Don't have an account?  Sign Up"
                 android:textSize="14sp"
-                android:textColor="#A95668" />
+                android:textColor="#A95668"
+                android:clickable="true"
+                android:focusable="true" />
 
         </LinearLayout>
 

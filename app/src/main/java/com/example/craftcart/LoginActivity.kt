@@ -1,5 +1,6 @@
 package com.example.craftcart
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -7,11 +8,39 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.craftcart.data.AppDatabase
+import com.example.craftcart.data.entity.Product
+import com.example.craftcart.data.entity.User
+import com.example.craftcart.data.sync.FirestoreSyncManager
+import com.example.craftcart.network.NetworkUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check authentication state: if user is already signed in, navigate straight to HomeActivity
+        if (auth.currentUser != null) {
+            val uid = auth.currentUser?.uid ?: ""
+            if (uid.isNotEmpty()) {
+                getSharedPreferences("craftcart_prefs", Context.MODE_PRIVATE)
+                    .edit()
+                    .putString("auth_uid", uid)
+                    .apply()
+            }
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
 
         setContentView(R.layout.activity_login)
 
@@ -20,6 +49,9 @@ class LoginActivity : AppCompatActivity() {
 
         val loginButton = findViewById<Button>(R.id.loginButton)
         val signupText = findViewById<TextView>(R.id.signupText)
+
+        // Seed initial Room data on launch
+        seedInitialDatabaseData()
 
         // LOGIN BUTTON
         loginButton.setOnClickListener {
@@ -40,15 +72,56 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // If both fields are filled, open Home
-            Toast.makeText(
-                this,
-                "Login successful!",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (!NetworkUtils.isNetworkAvailable(this)) {
+                Toast.makeText(this, "No internet connection. Internet is required for authentication.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        val firebaseUser = auth.currentUser
+                        val uid = firebaseUser?.uid ?: ""
+
+                        getSharedPreferences("craftcart_prefs", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("auth_uid", uid)
+                            .apply()
+
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            val db = AppDatabase.getDatabase(applicationContext)
+                            var user = db.userDao().getUserByEmail(email)
+                            if (user == null) {
+                                user = User(name = email.substringBefore("@"), email = email, password = "")
+                                val insertedId = db.userDao().insert(user)
+                                user = user.copy(id = insertedId)
+                            }
+
+                            // Sync user to Firestore "users" collection (keyed by Firebase UID)
+                            FirestoreSyncManager.uploadUser(applicationContext, user, uid)
+                            FirestoreSyncManager.startRealtimeSync(applicationContext)
+
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Login successful!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            task.exception?.localizedMessage ?: "Authentication failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
         }
 
         // SIGN UP
@@ -60,6 +133,62 @@ class LoginActivity : AppCompatActivity() {
             )
 
             startActivity(intent)
+        }
+    }
+
+    private fun seedInitialDatabaseData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val db = AppDatabase.getDatabase(applicationContext)
+            var existingProducts = db.productDao().getAllProducts()
+            if (existingProducts.isEmpty()) {
+                val sampleProducts = listOf(
+                    Product(id = 1, name = "Puppy Portrait", price = 499.0, category = "Canvas Painting", imageResId = R.drawable.pup_painting),
+                    Product(id = 2, name = "Puppy Dreams", price = 499.0, category = "Canvas Painting", imageResId = R.drawable.puppy_painting),
+                    Product(id = 3, name = "Tasty Little Things", price = 449.0, category = "Canvas Painting", imageResId = R.drawable.tasty_painting),
+                    Product(id = 4, name = "Cute Christmas", price = 399.0, category = "Seasonal Art", imageResId = R.drawable.cute_christmas),
+                    Product(id = 5, name = "Meow Christmas", price = 449.0, category = "Seasonal Art", imageResId = R.drawable.meow_christmas),
+                    Product(id = 6, name = "Garden Portrait", price = 499.0, category = "Handmade Art", imageResId = R.drawable.pup_painting),
+                    Product(id = 7, name = "Clay House", price = 599.0, category = "Home Decor", imageResId = R.drawable.clay_house),
+                    Product(id = 8, name = "Miffy Keychain", price = 349.0, category = "Keychains", imageResId = R.drawable.miffy_keychai),
+                    Product(id = 9, name = "Flower Planters", price = 449.0, category = "Planters", imageResId = R.drawable.flower_planters)
+                )
+                db.productDao().insertAll(sampleProducts)
+                existingProducts = db.productDao().getAllProducts()
+            }
+
+            // Sync products to Firestore "products" collection
+            try {
+                val firestore = FirebaseFirestore.getInstance()
+                for (product in existingProducts) {
+                    val productData = hashMapOf(
+                        "productId" to product.id,
+                        "productName" to product.name,
+                        "category" to product.category,
+                        "price" to product.price,
+                        "imageName" to getProductImageName(product.id)
+                    )
+                    firestore.collection("products")
+                        .document(product.id.toString())
+                        .set(productData)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun getProductImageName(id: Long): String {
+        return when (id) {
+            1L -> "pup_painting"
+            2L -> "puppy_painting"
+            3L -> "tasty_painting"
+            4L -> "cute_christmas"
+            5L -> "meow_christmas"
+            6L -> "pup_painting"
+            7L -> "clay_house"
+            8L -> "miffy_keychai"
+            9L -> "flower_planters"
+            else -> "pup_painting"
         }
     }
 }

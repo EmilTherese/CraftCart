@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
+        android:name=".CraftCartApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -46,31 +53,31 @@
 
         <activity
             android:name=".CategoryActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ProductListActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ProductDetailActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".CartActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".WishlistActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />
 
@@ -82,6 +89,18 @@
 
         <activity
             android:name=".ProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CraftCart"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ChatbotActivity"
+            android:exported="false"
+            android:theme="@style/Theme.CraftCart"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".CampusMapActivity"
             android:exported="false"
             android:theme="@style/Theme.CraftCart"
             android:windowSoftInputMode="adjustResize" />

@@ -117,342 +117,13 @@
             </HorizontalScrollView>
 
 
-            <!-- ================= ORDER 1 ================= -->
+            <!-- ================= ORDERS CONTAINER ================= -->
 
             <LinearLayout
+                android:id="@+id/ordersContainer"
                 android:layout_width="match_parent"
-                android:layout_height="148dp"
-                android:layout_marginTop="8dp"
-                android:background="#FFFFFF"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <!-- Order header -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order ID: #CC1025"
-                            android:textColor="#2E1B18"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="Placed on 10 May 2024"
-                            android:textColor="#777777"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="72dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Delivered"
-                        android:textColor="#57935B"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <!-- Products + total -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/pup_painting"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Puppy Portrait" />
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="7dp"
-                        android:src="@drawable/cute_christmas"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Cute Christmas" />
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="7dp"
-                        android:src="@drawable/flower_planters"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Flower Planters" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="3 Items"
-                        android:textColor="#555555"
-                        android:textSize="12sp" />
-
-                    <LinearLayout
-                        android:layout_width="88dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="Total: ₹1347"
-                            android:textColor="#2E1B18"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="end"
-                            android:text="View Details  ›"
-                            android:textColor="#B56576"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <!-- ================= ORDER 2 ================= -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="148dp"
-                android:layout_marginTop="8dp"
-                android:background="#FFFFFF"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order ID: #CC1008"
-                            android:textColor="#2E1B18"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="Placed on 05 May 2024"
-                            android:textColor="#777777"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="72dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Shipped"
-                        android:textColor="#D99A3D"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/miffy_keychai"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Miffy Keychain" />
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="7dp"
-                        android:src="@drawable/clay_house"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Clay House" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="2 Items"
-                        android:textColor="#555555"
-                        android:textSize="12sp" />
-
-                    <LinearLayout
-                        android:layout_width="88dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="Total: ₹948"
-                            android:textColor="#2E1B18"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="end"
-                            android:text="View Details  ›"
-                            android:textColor="#B56576"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <!-- ================= ORDER 3 ================= -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="148dp"
-                android:layout_marginTop="8dp"
-                android:background="#FFFFFF"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Order ID: #CC0987"
-                            android:textColor="#2E1B18"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="3dp"
-                            android:text="Placed on 28 Apr 2024"
-                            android:textColor="#777777"
-                            android:textSize="10sp" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="72dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Delivered"
-                        android:textColor="#57935B"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/puppy_painting"
-                        android:scaleType="centerCrop"
-                        android:contentDescription="Puppy Dreams" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="12dp"
-                        android:text="1 Item"
-                        android:textColor="#555555"
-                        android:textSize="12sp" />
-
-                    <LinearLayout
-                        android:layout_width="88dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="Total: ₹499"
-                            android:textColor="#2E1B18"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="end"
-                            android:text="View Details  ›"
-                            android:textColor="#B56576"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
         </LinearLayout>
 
@@ -471,6 +142,7 @@
         <!-- HOME -->
 
         <LinearLayout
+            android:id="@+id/navHome"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -498,6 +170,7 @@
         <!-- CATEGORIES -->
 
         <LinearLayout
+            android:id="@+id/navCategories"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -525,6 +198,7 @@
         <!-- ORDERS - SELECTED -->
 
         <LinearLayout
+            android:id="@+id/navOrders"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -552,6 +226,7 @@
         <!-- WISHLIST -->
 
         <LinearLayout
+            android:id="@+id/navWishlist"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -579,6 +254,7 @@
         <!-- PROFILE -->
 
         <LinearLayout
+            android:id="@+id/navProfile"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
